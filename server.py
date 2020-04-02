@@ -34,7 +34,7 @@ def get_players(sid):
             myself = p
 
     ret = json.dumps({
-        "self": myself.json,
+        "self": myself.toJson(),
         "players": players_json
     })
 
@@ -49,4 +49,4 @@ def disconnect(sid):
 
 port = int(os.environ.get('PORT', 3000))
 # print("started listening on 0.0.0.0:"+str(port))
-eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), app)
+eventlet.wsgi.server(eventlet.listen(('localhost', port)), app)
