@@ -33,8 +33,6 @@ def get_players(sid):
         if p.sid == sid:
             myself = p
 
-    # players_json = str(players_json).replace('\'','\"')
-
     ret = json.dumps({
         "sid": sid,
         "players": players_json
