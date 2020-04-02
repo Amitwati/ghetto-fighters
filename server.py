@@ -34,7 +34,7 @@ def get_players(sid):
             myself = p
 
     ret = json.dumps({
-        "sid": sid,
+        "self": myself.json,
         "players": players_json
     })
 
