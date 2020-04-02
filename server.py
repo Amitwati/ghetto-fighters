@@ -10,6 +10,7 @@ app = socketio.WSGIApp(sio)
 
 players = []
 
+
 @sio.event
 def connect(sid, environ):
     global players
@@ -25,11 +26,29 @@ def my_hit_options(sid):
 
 
 @sio.event
+def get_players(sid):
+    players_json = []
+    for p in players:
+        players_json.append(p.toJson())
+        if p.sid == sid:
+            myself = p
+
+    # players_json = str(players_json).replace('\'','\"')
+
+    ret = json.dumps({
+        "sid": sid,
+        "players": players_json
+    })
+
+    sio.emit('get_players', ret, room=sid)
+
+
+@sio.event
 def disconnect(sid):
     global players
     players = list(filter(lambda p: p.sid != sid, players))
 
 
 port = int(os.environ.get('PORT', 3000))
-print("started listening on 0.0.0.0:"+str(port))
+# print("started listening on 0.0.0.0:"+str(port))
 eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), app)

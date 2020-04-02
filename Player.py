@@ -13,7 +13,6 @@ class Player:
 
     def toJson(self):
         return {
-            "sid": self.sid,
             "nickname": self.nickname,
             "HP": self.HP,
             "XP": self.XP
