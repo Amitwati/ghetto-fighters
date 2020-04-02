@@ -106,4 +106,4 @@ def disconnect(sid):
 
 
 port = int(os.environ.get('PORT', 3000))
-eventlet.wsgi.server(eventlet.listen(('localhost', port)), app)
+eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), app)
