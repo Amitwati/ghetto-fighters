@@ -14,14 +14,6 @@ players = []
 turn_index = 0
 turn = "null"
 
-# @sio.event
-# def connect(sid, environ):
-#     global players
-#     if len(players) == 2:
-#         raise ConnectionRefusedError("Too many players!")
-#     sio.enter_room(sid, "players")
-#     players.append(Player(sid, name))
-
 
 @sio.event
 def register(sid, nickname):
@@ -40,10 +32,12 @@ def my_hit_options(sid):
             myself = p
     sio.emit('my_hit_options', json.dumps(myself.getHitsOptions()), room=sid)
 
+
 @sio.event
 def get_news(sid):
     global turn
     sio.emit('get_news', json.dumps(turn), room=sid)
+
 
 @sio.event
 def make_move(sid, cmd):
@@ -68,9 +62,12 @@ def make_move(sid, cmd):
 
     turn_index = (turn_index + 1) % 2
 
-    players[turn_index].XP += 10
-    sio.emit('play', to=players[turn_index].sid)
-    sio.emit('watch', to=players[(turn_index+1) % 2].sid)
+    if players[victim].HP <= 0:
+        sio.emit('end_game', {"winner": players[attacker].nickname})
+    else:
+        players[turn_index].XP += 10
+        sio.emit('play', to=players[turn_index].sid)
+        sio.emit('watch', to=players[(turn_index+1) % 2].sid)
 
 
 @sio.event
@@ -100,9 +97,9 @@ def disconnect(sid):
     for p in players:
         if p.sid == sid:
             myself = p
+    print(myself.nickname + " left the server.. ")
     players = list(filter(lambda p: p.sid != sid, players))
-    print(players)
 
 
 port = int(os.environ.get('PORT', 3000))
-eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), app)
+eventlet.wsgi.server(eventlet.listen(('localhost', port)), app)
