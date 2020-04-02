@@ -1,8 +1,19 @@
+import json
+
+
 class Hit:
     def __init__(self, title, damage, cost):
         self.title = title
         self.damage = damage
         self.cost = cost
+
+    def toJson(self):
+        return {
+            "title": self.title,
+            "damage": self.damage,
+            "cost": self.cost
+        }
+
 
 HitsMenu = {
     "sk": Hit("Simple kick", 10, 5),

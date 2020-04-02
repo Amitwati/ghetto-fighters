@@ -10,18 +10,19 @@ app = socketio.WSGIApp(sio)
 
 players = []
 
+
 @sio.event
 def connect(sid, environ):
     global players
     players.append(Player(sid, "Player " + str(len(players)+1)))
 
+
 @sio.event
-def my_hit_options(sid,data):
+def my_hit_options(sid):
     for p in players:
         if p.sid == sid:
             myself = p
-    
-    return json.dumps(myself.getHitsOptions())
+    sio.emit('my_hit_options', json.dumps(myself.getHitsOptions()), room=sid)
 
 
 @sio.event
