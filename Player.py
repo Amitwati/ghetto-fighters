@@ -5,7 +5,7 @@ class Player:
         self.sid = sid
         self.nickname = nickname
         self.HP = 100
-        self.XP = 10
+        self.XP = 0
 
     def __str__(self):
         return "sid : " + self.sid

@@ -28,6 +28,7 @@ def register(sid, nickname):
     sio.enter_room(sid, "players")
     players.append(Player(sid, nickname))
     if len(players) == 2:
+        players[turn_index].XP += 10
         sio.emit('play', to=players[turn_index].sid)
         sio.emit('watch', to=players[(turn_index+1) % 2].sid)
 
@@ -59,7 +60,7 @@ def make_move(sid, cmd):
     turn = {
         "attacker": players[attacker].nickname,
         "victim": players[victim].nickname,
-        "move": hit
+        "move": hit.toJson()
     }
 
     players[attacker].XP -= hit.cost
@@ -67,6 +68,7 @@ def make_move(sid, cmd):
 
     turn_index = (turn_index + 1) % 2
 
+    players[turn_index].XP += 10
     sio.emit('play', to=players[turn_index].sid)
     sio.emit('watch', to=players[(turn_index+1) % 2].sid)
 
