@@ -16,6 +16,7 @@ class Hit:
 
 
 HitsMenu = {
+    "no": Hit("Skip turn", 0, 0),
     "sk": Hit("Simple kick", 10, 5),
     "sp": Hit("Simple punch", 15, 10),
     "mk": Hit("Medium kick", 20, 15),
