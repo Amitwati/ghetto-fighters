@@ -57,8 +57,8 @@ def make_move(sid, cmd):
             victim = i
 
     turn = {
-        "attacker": players[attacker],
-        "victim": players[victim],
+        "attacker": players[attacker].nickname,
+        "victim": players[victim].nickname,
         "move": hit
     }
 
