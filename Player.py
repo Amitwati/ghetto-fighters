@@ -1,6 +1,5 @@
 from Hit import HitsMenu
 
-
 class Player:
     def __init__(self, sid, nickname):
         self.sid = sid
