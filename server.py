@@ -95,12 +95,9 @@ def get_players(sid):
 @sio.event
 def disconnect(sid):
     global players
-    global names
     for p in players:
         if p.sid == sid:
             myself = p
-    names.append(myself.nickname)
-    names = list(set(names))
     players = list(filter(lambda p: p.sid != sid, players))
     print(players)
 
