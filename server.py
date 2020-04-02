@@ -24,6 +24,9 @@ def my_hit_options(sid):
             myself = p
     sio.emit('my_hit_options', json.dumps(myself.getHitsOptions()), room=sid)
 
+@sio.event
+def reset(sid):
+    players = []
 
 @sio.event
 def get_players(sid):
