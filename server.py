@@ -10,7 +10,6 @@ app = socketio.WSGIApp(sio)
 
 players = []
 
-
 @sio.event
 def connect(sid, environ):
     global players
@@ -33,4 +32,4 @@ def disconnect(sid):
 
 port = int(os.environ.get('PORT', 3000))
 print("started listening on 0.0.0.0:"+str(port))
-eventlet.wsgi.server(eventlet.listen(('localhost', port)), app)
+eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), app)
