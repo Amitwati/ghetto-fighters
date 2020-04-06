@@ -106,6 +106,8 @@ def disconnect(sid):
             myself = p
     print(myself.nickname + " left the server.. ")
     players = list(filter(lambda p: p.sid != sid, players))
+    if len(players) == 0:
+        reset(sid)
 
 
 port = int(os.environ.get('PORT', 3000))
