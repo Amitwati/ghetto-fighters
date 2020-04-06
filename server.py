@@ -18,6 +18,7 @@ turn = "null"
 @sio.event
 def register(sid, nickname):
     sio.enter_room(sid, "players")
+    print("\'"+nickname+"\' signed in...")
     players.append(Player(sid, nickname))
     if len(players) == 2:
         players[turn_index].XP += 10
@@ -64,6 +65,7 @@ def make_move(sid, cmd):
 
     if players[victim].HP <= 0:
         sio.emit('end_game', {"winner": players[attacker].nickname})
+        reset(sid)
     else:
         players[turn_index].XP += 10
         sio.emit('play', to=players[turn_index].sid)
@@ -72,6 +74,11 @@ def make_move(sid, cmd):
 
 @sio.event
 def reset(sid):
+    global players
+    global turn_index
+    global turn
+    turn_index = 0
+    turn = "null"
     players = []
 
 
