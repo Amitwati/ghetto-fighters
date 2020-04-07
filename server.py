@@ -44,6 +44,7 @@ def get_news(sid):
 def make_move(sid, cmd):
     global turn
     global turn_index
+
     hit = HitsMenu[cmd]
 
     for i in range(len(players)):
@@ -51,6 +52,9 @@ def make_move(sid, cmd):
             attacker = i
         else:
             victim = i
+
+    if attacker != turn_index:
+        return
 
     turn = {
         "attacker": players[attacker].nickname,
