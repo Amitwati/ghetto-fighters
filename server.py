@@ -53,8 +53,13 @@ def make_move(sid, cmd):
         else:
             victim = i
 
+    hit_opt = list(players[attacker].getHitsOptions().keys())
+
+    if cmd not in hit_opt:
+        return 
+
     if attacker != turn_index:
-        return
+        return 
 
     turn = {
         "attacker": players[attacker].nickname,
@@ -70,6 +75,7 @@ def make_move(sid, cmd):
     if players[victim].HP <= 0:
         sio.emit('end_game', {"winner": players[attacker].nickname})
         reset(sid)
+        
     else:
         players[turn_index].XP += 10
         sio.emit('play', to=players[turn_index].sid)
@@ -78,6 +84,7 @@ def make_move(sid, cmd):
 
 @sio.event
 def reset(sid):
+    print("restarting game")
     global players
     global turn_index
     global turn
