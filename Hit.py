@@ -19,6 +19,7 @@ HitsMenu = {
     "no": Hit("Skip turn", 0, -5),
     "sk": Hit("Simple kick", 10, 5),
     "sp": Hit("Simple punch", 15, 10),
+    "he": Hit("Healed himself and skip", -5, 10),
     "mk": Hit("Medium kick", 20, 15),
     "mp": Hit("Medium punch", 25, 20),
     "sh": Hit("Super hit", 40, 50),

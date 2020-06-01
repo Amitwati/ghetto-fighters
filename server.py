@@ -68,7 +68,12 @@ def make_move(sid, cmd):
     }
 
     players[attacker].XP -= hit.cost
-    players[victim].HP -= hit.damage
+    
+
+    if hit.damage < 0 :
+        players[attacker].HP -= hit.damage
+    else:
+        players[victim].HP -= hit.damage
 
     turn_index = (turn_index + 1) % 2
 
